@@ -21,6 +21,20 @@ Route::post('/v1/login', [AutenticacionController::class, 'loginUsuario']);
 
 //TODO: Rutas generales 
 Route::middleware(['auth:sanctum'])->group(function () {
-       //* Cerrar sesión
-       Route::get('/v1/logout', [AutenticacionController::class, 'logoutUsuario']);
+    //* Cerrar sesión
+    Route::get('/v1/logout', [AutenticacionController::class, 'logoutUsuario']);
+
+    //TODO: Ruta directora
+    Route::middleware(['directora'])->group(function () {
+        Route::get('/v1/directora', function () {
+            return response()->json(['message' => 'Bievenido Usuario Directora']);
+        });
+    });
+
+    //TODO: Ruta educadora
+    Route::middleware(['educadora'])->group(function () {
+        Route::get('/v1/educadora', function () {
+            return response()->json(['message' => 'Bievenido Usuario Educadora']);
+        });
+    });
 });
