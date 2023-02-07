@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AutenticacionController;
+use App\Http\Controllers\Directora\Usuario\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/v1/directora', function () {
             return response()->json(['message' => 'Bievenido Usuario Directora']);
         });
+
+        //TODO: CRUD usuario
+        //* Crear nuevo usuario
+        Route::post('/v1/directora/registrar/usuario', [UsuarioController::class, 'crearUsuario']);
+
+        //* Ver todos los usuarios
+        Route::get('/v1/directora/lista/usuarios', [UsuarioController::class, 'obtenerUsuarios']);
+
+        //* Buscar usuario
+        Route::get('/v1/directora/buscar/usuario/{id}', [UsuarioController::class, 'buscarUsuario']);
+
+        //* Modificar usuario
+        Route::put('/v1/directora/modificar/usuario/{id}', [UsuarioController::class, 'modificarUsuario']);
+
+        //* Eliminar usuario
+        Route::delete('/v1/directora/eliminar/usuario/{id}', [UsuarioController::class, 'eliminarUsuario']);
     });
 
     //TODO: Ruta educadora
