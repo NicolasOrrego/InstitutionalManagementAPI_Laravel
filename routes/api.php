@@ -64,6 +64,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         //* Eliminar apoderado
         Route::delete('/v1/directora/eliminar/apoderado/{id}', [UsuarioController::class, 'eliminarApoderado']);
+
+        //TODO: CRUD alumno
+         //* Crear nuevo alumno
+         Route::post('/v1/directora/registrar/alumno', [AlumnoController::class, 'crearAlumno']);
+
+         //* Ver todos los alumnos
+         Route::get('/v1/directora/lista/alumno', [AlumnoController::class, 'obtenerAlumnos']);
+ 
+         //* Buscar alumno
+         Route::get('/v1/directora/buscar/alumno/{id}', [AlumnoController::class, 'buscarAlumno']);
+ 
+         //* Modificar alumno
+         Route::put('/v1/directora/modificar/alumno/{id}', [AlumnoController::class, 'modificarAlumno']);
+ 
+         //* Eliminar alumno
+         Route::delete('/v1/directora/eliminar/alumno/{id}', [AlumnoController::class, 'eliminarAlumno']);
     });
 
     //TODO: Ruta educadora
