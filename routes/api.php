@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Directora\Apoderado\ApoderadoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AutenticacionController;
+use App\Http\Controllers\Directora\Curso\CursoController;
 use App\Http\Controllers\Directora\Usuario\UsuarioController;
+use App\Http\Controllers\Directora\Apoderado\ApoderadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,21 +66,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
         //* Eliminar apoderado
         Route::delete('/v1/directora/eliminar/apoderado/{id}', [UsuarioController::class, 'eliminarApoderado']);
 
-        //TODO: CRUD alumno
-         //* Crear nuevo alumno
-         Route::post('/v1/directora/registrar/alumno', [AlumnoController::class, 'crearAlumno']);
+        //TODO: CRUD curso
+         //* Crear nuevo curso
+         Route::post('/v1/directora/registrar/curso', [CursoController::class, 'crearCurso'],);
 
-         //* Ver todos los alumnos
-         Route::get('/v1/directora/lista/alumno', [AlumnoController::class, 'obtenerAlumnos']);
+         //* Ver todos los curso
+         Route::get('/v1/directora/lista/curso', [CursoController::class, 'obtenerCursos']);
  
-         //* Buscar alumno
-         Route::get('/v1/directora/buscar/alumno/{id}', [AlumnoController::class, 'buscarAlumno']);
+         //* Buscar curso
+         Route::get('/v1/directora/buscar/curso/{id}', [CursoController::class, 'buscarCurso']);
  
-         //* Modificar alumno
-         Route::put('/v1/directora/modificar/alumno/{id}', [AlumnoController::class, 'modificarAlumno']);
+         //* Modificar curso
+         Route::put('/v1/directora/modificar/alumno/{id}', [CursoController::class, 'modificarCurso']);
  
-         //* Eliminar alumno
-         Route::delete('/v1/directora/eliminar/alumno/{id}', [AlumnoController::class, 'eliminarAlumno']);
+         //* Eliminar curso
+         Route::delete('/v1/directora/eliminar/curso/{id}', [CursoController::class, 'eliminarCurso']);
     });
 
     //TODO: Ruta educadora
