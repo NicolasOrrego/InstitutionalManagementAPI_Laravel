@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Directora\Apoderado\ApoderadoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AutenticacionController;
@@ -50,19 +51,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
        //TODO: CRUD apoderado
         //* Crear nuevo apoderado
-        Route::post('/v1/directora/registrar/apoderado', [UsuarioController::class, 'crearapoderado']);
+        Route::post('/v1/directora/registrar/apoderado', [ApoderadoController::class, 'crearApoderado']);
 
         //* Ver todos los apoderados
-        Route::get('/v1/directora/lista/apoderado', [UsuarioController::class, 'obtenerpoderado']);
+        Route::get('/v1/directora/lista/apoderados', [ApoderadoController::class, 'obtenerApoderados']);
 
         //* Buscar apoderado
-        Route::get('/v1/directora/buscar/apoderado/{id}', [UsuarioController::class, 'buscarApoderado']);
+        Route::get('/v1/directora/buscar/apoderado/{id}', [ApoderadoController::class, 'buscarApoderado']);
 
         //* Modificar apoderado
-        Route::put('/v1/directora/modificar/apoderado/{id}', [UsuarioController::class, 'modificarUsuario']);
+        Route::put('/v1/directora/modificar/apoderado/{id}', [ApoderadoController::class, 'modificarApoderado']);
 
         //* Eliminar apoderado
-        Route::delete('/v1/directora/eliminar/apoderado/{id}', [UsuarioController::class, 'eliminarUsuario']);
+        Route::delete('/v1/directora/eliminar/apoderado/{id}', [UsuarioController::class, 'eliminarApoderado']);
     });
 
     //TODO: Ruta educadora
