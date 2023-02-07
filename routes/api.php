@@ -48,10 +48,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/v1/directora/eliminar/usuario/{id}', [UsuarioController::class, 'eliminarUsuario']);
     });
 
+       //TODO: CRUD apoderado
+        //* Crear nuevo apoderado
+        Route::post('/v1/directora/registrar/apoderado', [UsuarioController::class, 'crearapoderado']);
+
+        //* Ver todos los apoderados
+        Route::get('/v1/directora/lista/apoderado', [UsuarioController::class, 'obtenerpoderado']);
+
+        //* Buscar apoderado
+        Route::get('/v1/directora/buscar/apoderado/{id}', [UsuarioController::class, 'buscarApoderado']);
+
+        //* Modificar apoderado
+        Route::put('/v1/directora/modificar/apoderado/{id}', [UsuarioController::class, 'modificarUsuario']);
+
+        //* Eliminar apoderado
+        Route::delete('/v1/directora/eliminar/apoderado/{id}', [UsuarioController::class, 'eliminarUsuario']);
+    });
+
     //TODO: Ruta educadora
     Route::middleware(['educadora'])->group(function () {
         Route::get('/v1/educadora', function () {
             return response()->json(['message' => 'Bievenido Usuario Educadora']);
         });
     });
-});
