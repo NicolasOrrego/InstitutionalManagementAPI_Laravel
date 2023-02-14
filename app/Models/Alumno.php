@@ -15,6 +15,7 @@ class Alumno extends Model
         'nombres',
         'apellidos',
         'fecha_nac',
-        
     ];
+
+    
 }
