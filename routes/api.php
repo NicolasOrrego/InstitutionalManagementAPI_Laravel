@@ -3,10 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AutenticacionController;
-use App\Http\Controllers\Directora\Alumno\AlumnoConntroller;
 use App\Http\Controllers\Directora\Curso\CursoController;
+use App\Http\Controllers\Directora\Alumno\AlumnoConntroller;
 use App\Http\Controllers\Directora\Usuario\UsuarioController;
 use App\Http\Controllers\Directora\Apoderado\ApoderadoController;
+use App\Http\Controllers\Directora\Asistencia\AsistenciaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,7 +108,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
            Route::get('/v1/directora/lista/asistencias', [AsistenciaController::class, 'obtenerAsistencias'],);
    
            //* Buscar asistencia
-           Route::get('/v1/directora/buscar/asistencia/{id}', [AsistenciaController::class, 'buscarAsistencia']);
+           Route::get('/v1/directora/buscar/asistencia/{fecha}/{id_curso}', [AsistenciaController::class, 'buscarAsistencia']);
    
            //* Modificar asistencia 
            Route::put('/v1/directora/modificar/asistencia/{id}', [AsistenciaController::class, 'modificarAsistencia']);

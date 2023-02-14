@@ -2,47 +2,107 @@
 
 namespace App\Http\Controllers\Directora\Asistencia;
 
-use App\Http\Controllers\Controller;
+use App\Models\Alumno;
 use App\Models\Asistencia;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class AsistenciaController extends Controller
 {
+    //TODO: Crear nueva asistencia
     public function crearAsistencia(Request $request)
     {
-        $validacion_datos = $request->validate([
-            'fecha' => 'required|date_format:Y-m-d',
-            'hora' => 'required|date_format:H:i',
-            'motivo' => 'required|max:60|min:3',
-            ''
-        ], [
-            //! VALIDACIONES
-            'fecha.required' => 'El campo de fecha es requerido.',
-            'fecha.date_format' => 'El formato de fecha no es valido',
-            'hora.date_format' => 'El formato de hora no es valida',
-            'motivo.required' => 'El campo motivo es requerido',
+        $request->validate([
+            'id_curso' => 'required|exists:cursos,id',
+            'fecha' => 'required|date',
+            'estado.*' => 'required|in:Ausente,Presente',
+            'id_alumno.*' => 'required|exists:alumnos,id',
         ]);
 
-        $usuario = auth()->user();
-        $existe_cita = Asistencia::where('fecha', $request->fecha)
-            ->where('hora', $request->hora)->first();
-
-        if ($existe_cita) {
-            return response()->json(['error' => 'La hora esta siendo ocupada'], 404);
+        $asistencia = Asistencia::where('id_curso', $request->id_curso)
+            ->where('fecha', $request->fecha)
+            ->first();
+        if ($asistencia) {
+            return response()->json([
+                'message' => 'La asistencia para este curso en esta fecha ya ha sido registrada.'
+            ], 400);
         }
 
-        if ($usuario->roles !== "Cliente" || $usuario->estado !== "Habilitado") {
-            return response()->json(['error' => 'El usuario cliente seleccionado no se encuentra habilitado'], 403);
+        foreach ($request->estado as $key => $value) {
+            Asistencia::create([
+                'id_user' => auth()->user()->id,
+                'id_curso' => $request->id_curso,
+                'fecha' => $request->fecha,
+                'id_alumno' => $request['id_alumno'][$key],
+                'estado' => $value,
+            ]);
         }
 
-        $cita_medica = $validacion_datos;
-        $cita_medica['fecha'] = $request->fecha;
-        $cita_medica['hora'] = $request->hora;
-        $cita_medica['id_usuario'] = $usuario->id;
-        $cita_medica = Asistencia::create($cita_medica);
         return response()->json([
-            'message' => 'Cita médica registrada exitosamente',
-            'cita_medica' => $cita_medica
+            'message' => 'Asistencia registrada exitosamente'
+        ]);
+    }
+
+    //TODO: Obtener todos las asistencias
+    public function obtenerAsistencias(Request $request)
+    {
+        $asistencias = Asistencia::all();
+
+        if ($asistencias->count() > 0) {
+            return response()->json([
+                'asistencias' => $asistencias
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No hay asistencias registradas.'
+            ], 200);
+        }
+    }
+
+    //TODO: Buscar asistencia 
+    public function buscarAsistencia(Request $request, $fecha, $id_curso)
+    {
+        $asistencias = Asistencia::where('fecha', $fecha)
+            ->where('id_curso', $id_curso)
+            ->get();
+
+        return response()->json([
+            'asistencias' => $asistencias
         ], 200);
+    }
+
+    //TODO: Modificar asistencia 
+    public function modificarAsistencia(Request $request, $id)
+    {
+        $asistencia = Asistencia::find($id);
+        if (!$asistencia) {
+            return response()->json(['message' => 'Asistencia no encontrada'], 404);
+        }
+
+        $request->validate([
+            'estado' => 'required|in:Ausente,Presente',
+        ]);
+
+        $asistencia->estado = $request->estado;
+        $asistencia->save();
+
+        return response()->json(['message' => 'Asistencia modificada correctamente'], 200);
+    }
+
+    //TODO: Eliminar asistencia 
+    public function eliminarAsistenciaCurso($id_curso, $fecha)
+    {
+        $asistencias = Asistencia::where('id_curso', $id_curso)
+            ->where('fecha', $fecha)
+            ->get();
+
+        foreach ($asistencias as $asistencia) {
+            $asistencia->delete();
+        }
+
+        return response()->json([
+            'message' => 'Asistencia eliminada exitosamente'
+        ]);
     }
 }
