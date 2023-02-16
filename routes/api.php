@@ -8,6 +8,7 @@ use App\Http\Controllers\Directora\Alumno\AlumnoConntroller;
 use App\Http\Controllers\Directora\Usuario\UsuarioController;
 use App\Http\Controllers\Educadora\Apoderado\ApoderadoController;
 use App\Http\Controllers\Directora\Asistencia\AsistenciaController;
+use App\Http\Controllers\Educadora\Alumno\AlumnoController;
 use App\Http\Controllers\Educadora\Informacion\InformacionController;
 
 /*
@@ -157,5 +158,11 @@ Route::middleware(['educadora'])->group(function () {
 
     //* Buscar curso
     Route::get('/v1/educadora/buscar/curso/{id}', [CursoController::class, 'buscarCurso']);
-    
+
+    //TODO: Alumno
+    //* Ver todos los alumno
+    Route::get('/v1/educadora/lista/alumnos', [AlumnoController::class, 'obtenerAlumnos']);
+
+    //* Buscar alumno
+    Route::get('/v1/educadora/buscar/alumno/{id}', [AlumnoController::class, 'buscarAlumno']);
 });
