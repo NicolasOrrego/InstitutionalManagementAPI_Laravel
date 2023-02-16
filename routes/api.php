@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AutenticacionController;
-use App\Http\Controllers\Directora\Curso\CursoController;
+use App\Http\Controllers\Educadora\Curso\CursoController;
 use App\Http\Controllers\Directora\Alumno\AlumnoConntroller;
 use App\Http\Controllers\Directora\Usuario\UsuarioController;
 use App\Http\Controllers\Educadora\Apoderado\ApoderadoController;
@@ -151,7 +151,11 @@ Route::middleware(['educadora'])->group(function () {
     //* Buscar apoderado
     Route::get('/v1/educadora/buscar/apoderado/{id}', [ApoderadoController::class, 'buscarApoderado']);
 
-    
+    //TODO: Curso
+    //* Ver todos los curso
+    Route::get('/v1/educadora/lista/curso', [CursoController::class, 'obtenerCursos']);
 
+    //* Buscar curso
+    Route::get('/v1/educadora/buscar/curso/{id}', [CursoController::class, 'buscarCurso']);
     
 });
