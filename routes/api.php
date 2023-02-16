@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\AutenticacionController;
 use App\Http\Controllers\Directora\Curso\CursoController;
 use App\Http\Controllers\Directora\Alumno\AlumnoConntroller;
 use App\Http\Controllers\Directora\Usuario\UsuarioController;
-use App\Http\Controllers\Directora\Apoderado\ApoderadoController;
+use App\Http\Controllers\Educadora\Apoderado\ApoderadoController;
 use App\Http\Controllers\Directora\Asistencia\AsistenciaController;
 use App\Http\Controllers\Educadora\Informacion\InformacionController;
 
@@ -143,4 +143,15 @@ Route::middleware(['educadora'])->group(function () {
 
     //* Deshabilitar cuenta
     Route::put('/v1/educadora/deshabilitar/cuenta', [InformacionController::class, 'deshabilitarCuenta']);
+
+    //TODO: Apoderado
+    //* Ver todos los apoderados
+    Route::get('/v1/educadora/lista/apoderados', [ApoderadoController::class, 'obtenerApoderados']);
+
+    //* Buscar apoderado
+    Route::get('/v1/educadora/buscar/apoderado/{id}', [ApoderadoController::class, 'buscarApoderado']);
+
+    
+
+    
 });
