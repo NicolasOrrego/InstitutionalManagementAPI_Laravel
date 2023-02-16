@@ -8,6 +8,7 @@ use App\Http\Controllers\Directora\Alumno\AlumnoConntroller;
 use App\Http\Controllers\Directora\Usuario\UsuarioController;
 use App\Http\Controllers\Directora\Apoderado\ApoderadoController;
 use App\Http\Controllers\Directora\Asistencia\AsistenciaController;
+use App\Http\Controllers\Directora\Informacion\InformacionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/v1/directora', function () {
             return response()->json(['message' => 'Bievenido Usuario Directora']);
         });
+
+        //TODO: Perfil
+         //* Ver informacion personal
+         Route::get('/v1/directora/informacion', [InformacionController::class, 'informacionPersonal']);
+
+         //* Modificar información personal
+         Route::put('/v1/directora/modificar/informacion', [InformacionController::class, 'modificarInformacion']);
+ 
+         //* Deshabilitar cuenta
+         Route::put('/v1/directora/deshabilitar/cuenta', [InformacionController::class, 'deshabilitarCuenta']);
 
         //TODO: CRUD usuario
         //* Crear nuevo usuario
