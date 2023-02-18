@@ -165,4 +165,15 @@ Route::middleware(['educadora'])->group(function () {
 
     //* Buscar alumno
     Route::get('/v1/educadora/buscar/alumno/{id}', [AlumnoController::class, 'buscarAlumno']);
+
+
+    //TODO: Asistencia alumno
+    //* Crear nueva asistencia 
+    Route::post('/v1/educadora/registrar/asistencia', [AsistenciaController::class, 'crearAsistencia'],);
+
+    //* Ver todas las asitencias
+    Route::get('/v1/educadora/lista/asistencias', [AsistenciaController::class, 'obtenerAsistencias'],);
+
+    //* Buscar asistencia
+    Route::get('/v1/educadora/buscar/asistencia/{fecha}/{id_curso}', [AsistenciaController::class, 'buscarAsistencia']);
 });
